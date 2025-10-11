@@ -12,11 +12,11 @@ const port = process.env.PORT
 const app = express()
 app.use(express.json())
 app.use(cors({
+    origin: "https://inotebook-client-pi.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 
 }))
-
-
 
 app.use('/api/auth', userRouter)
 app.use('/api/notes', noteRouter)
@@ -28,10 +28,10 @@ const serverStart = async () => {
         await Notes.syncIndexes();
         console.log('Indexes Synced');
 
-        app.listen(port, () => {
-            console.log(`server is running port = ${port}`);
+        // app.listen(port, () => {
+        //     console.log(`server is running port = ${port}`);
 
-        })
+        // })
     } catch (error) {
         console.error('ERROR', error)
     }
@@ -39,3 +39,5 @@ const serverStart = async () => {
 }
 
 serverStart()
+
+module.exports = app
