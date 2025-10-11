@@ -17,6 +17,7 @@ app.use(cors({
     credentials: true,
 
 }))
+app.use(express.static('public'))
 
 app.use('/api/auth', userRouter)
 app.use('/api/notes', noteRouter)
