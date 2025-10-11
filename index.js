@@ -41,4 +41,4 @@ const serverStart = async () => {
 
 serverStart()
 
-module.exports = app
+export default app;
