@@ -2,6 +2,14 @@ import jwt from 'jsonwebtoken'
 
 const getUsers = (req, res, next) => {
 
+     if (
+        req.url === '/manifest.json' ||
+        req.url === '/favicon.ico' ||
+        req.url.startsWith('/static/') // agar static assets kisi folder me hain
+    ) {
+        return next()
+    }
+    
     const token = req.header('auth-token')
     const JWT_SECRET_STRING = process.env.JWT_STRING
     if (!token) {
