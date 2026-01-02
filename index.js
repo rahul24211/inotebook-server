@@ -9,7 +9,7 @@ import Notes from './models/Notes.js'
 dotenv.config()
 const app = express()
 app.use(cors({
-    origin: ["http://localhost:3000", "https://inotebook-client-pi.vercel.app"],
+    origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }))
@@ -18,14 +18,16 @@ app.use(express.static('public'))
 app.use('/api/auth', userRouter)
 app.use('/api/notes', noteRouter)
 
+
+
 const serverStart = async () => {
     try {
         await dbConnect()
         await Notes.syncIndexes();
         console.log('Indexes Synced');
-        // app.listen(port, () => {
-        //     console.log(`server is running port = ${port}`);
-        // })
+        app.listen(process.env.PORT, () => {
+            console.log(`server is running port = ${process.env.PORT}`);
+        })
     } catch (error) {
         console.error('ERROR', error)
     }
